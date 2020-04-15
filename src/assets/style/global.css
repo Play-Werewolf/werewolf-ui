@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Normal;
+    background-color: #f3f3f3;
+}
+
+@font-face {
+    font-family: 'Werewolf';
+    src: local('Werewolf'), url("../../assets/fonts/DampfPlatzs.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'Normal';
+    src: local('Normal'), url("../../assets/fonts/BLKCHCRY.TTF") format('truetype');
+}
