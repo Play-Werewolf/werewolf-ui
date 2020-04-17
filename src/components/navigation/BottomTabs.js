@@ -5,15 +5,23 @@ import colors from "../../assets/colors";
 
 export default () => (
     <BottomBar>
-        Hello, world
+        <BottomTab>Hello</BottomTab>
+        <BottomTab>Fucking</BottomTab>
+        <BottomTab>World</BottomTab>
     </BottomBar>
 );
 
 const BottomBar = styled.div`
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
 height: 48px;
-background-color: ${colors.dark}
+width: 100%;
+background-color: ${colors.dark};
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+const BottomTab = styled.div`
+flex: 1;
+text-align: center;
 `;

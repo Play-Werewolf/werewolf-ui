@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import colors from "../../assets/colors";
 
@@ -9,6 +9,8 @@ import FlexContainer from "../common/FlexContainer";
 import BottomTabs from "../navigation/BottomTabs";
 
 const LoginScreen = () => {
+  const [roomId, setRoomId] = useState("");
+
   return (
     <FlexContainer>
       <div
@@ -37,21 +39,38 @@ const LoginScreen = () => {
       >
         <Textbox
           placeholder="Party number"
-          style={{ textAlign: "center", letterSpacing: 4, width: "80%" }}
+          style={{
+            textAlign: "center",
+            letterSpacing: roomId ? 4 : undefined,
+            width: "80%",
+          }}
           type="number"
+          value={roomId}
+          onChange={(e) => setRoomId(e.target.value)}
         />
         <Button color={colors.main} style={{ width: "80%" }}>
           Join an existing party
         </Button>
-
-        <span style={{ display: "block", height: 15 }}>&nbsp;</span>
-        <span style={{ color: "#aaa", fontSize: 20 }}>or</span>
-        <span style={{ display: "block", height: 15 }}>&nbsp;</span>
-
-        <Button color={colors.main}>Create a new party</Button>
       </div>
 
+      <div style={{ flex: 1 }}>&nbsp;</div>
 
+      <div
+        style={{
+          width: 250,
+          alignSelf: "center",
+          textAlign: "center",
+          marginBottom: 50,
+        }}
+      >
+        <span style={{ color: "#aaa", fontSize: 19 }}>
+          Feeling dominant?
+        </span>
+        <span style={{ display: "block", height: 5 }}>&nbsp;</span>
+        <Button color={colors.main} style={{ width: "70%" }}>
+          Create a new party
+        </Button>
+      </div>
       <BottomTabs />
     </FlexContainer>
   );
