@@ -22,6 +22,8 @@ export default () => {
           <CharacterBox
             background={randomHSL()}
             highlight={x === 10}
+            votes={x}
+            nickname={"Name"}
           ></CharacterBox>
         ))}
       </div>
@@ -34,7 +36,7 @@ export default () => {
   );
 };
 
-const CharacterBox = ({ highlight, background, children }) => (
+const CharacterBox = ({ highlight, background, children, nickname, votes }) => (
   <CharacterOutline highlight={highlight}>
     <CharacterFrame highlight={highlight} style={{ background }}>
       <img
@@ -58,8 +60,23 @@ const CharacterBox = ({ highlight, background, children }) => (
           alignItems: "center",
         }}
       >
-        <div style={{alignSelf: "center", marginBottom: -3}}>Hello</div>
+        <div style={{ alignSelf: "center", marginBottom: -3 }}>{nickname}</div>
       </div>
+      {votes > 0 && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            padding: 4,
+            borderRadius: "10px 0 10px 0",
+            backgroundColor: colors.main,
+            fontFamily: "Sans Serif",
+          }}
+        >
+          {votes < 10 && <b>&nbsp;</b>}{votes}{votes < 10 && <b>&nbsp;</b>}
+        </div>
+      )}
     </CharacterFrame>
   </CharacterOutline>
 );
