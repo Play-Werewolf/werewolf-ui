@@ -1,4 +1,5 @@
 {
     "main": "#AC6635",
-    "dark": "#1A1714"
+    "dark": "#1A1714",
+    "border": "#CCCCCC"
 }

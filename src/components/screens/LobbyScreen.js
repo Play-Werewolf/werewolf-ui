@@ -60,14 +60,14 @@ const LoginScreen = () => {
           width: 250,
           alignSelf: "center",
           textAlign: "center",
-          marginBottom: 50,
+          marginBottom: 55,
         }}
       >
         <span style={{ color: "#aaa", fontSize: 19 }}>
           Feeling dominant?
         </span>
         <span style={{ display: "block", height: 5 }}>&nbsp;</span>
-        <Button color={colors.main} style={{ width: "70%" }}>
+        <Button color={colors.main} style={{ width: "50%" }}>
           Create a new party
         </Button>
       </div>
