@@ -2,25 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import colors from "../../assets/colors.json";
 
-export default () => (
+import Overlay from "./Overlay";
+
+import { motion, AnimatePresence } from "framer-motion";
+
+export default ({ children }) => (
   <Overlay>
     <div style={{ flex: 0.6 }}>&nbsp;</div>
-    <Announcement></Announcement>
+    <AnimatePresence>
+      <motion.div
+        variants={{
+          hidden: {
+            scale: 0,
+          },
+          visible: {
+            scale: 1,
+          },
+        }}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ duration: 0.2 }}
+      >
+        <Announcement>{children}</Announcement>
+      </motion.div>
+    </AnimatePresence>
     <div style={{ flex: 1 }}>&nbsp;</div>
   </Overlay>
 );
-
-const Overlay = styled.div`
-  position: fixed;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 
 const CenterPanel = styled.div`
   display: flex;
@@ -37,12 +46,10 @@ const CenterPanel = styled.div`
   font-size: 20px;
 `;
 
-const Announcement = () => (
+const Announcement = ({ children }) => (
   <CenterPanel>
     <div style={{ flex: 1 }}>&nbsp;</div>
-    <div>
-      We found <strong>Talisman</strong> dead in their house tonight.
-    </div>
+    <div>{children}</div>
     <div style={{ flex: 1 }}>&nbsp;</div>
   </CenterPanel>
 );

@@ -1,10 +1,19 @@
 import React from 'react';
 
-import LobbyScreen from "./components/screens/Game/GameLobby";
+import { ModalProvider } from "./components/common/Modal";
+import GameScreen from "./components/screens/Game/GameScreen";
 
 function App() {
   return (
-    <LobbyScreen />
+    <div>
+    <GameScreen announcement={
+      <div>
+        They were probably cursed by the <strong style={{color: "violet"}}>Death Witch</strong>
+      </div>
+    } />
+
+    <ModalProvider />
+    </div>
   );
 }
 

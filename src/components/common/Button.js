@@ -8,4 +8,5 @@ color: white;
 cursor: pointer;
 display: inline-block;
 flex-grow: 0;
+margin-bottom: 8px;
 `;
