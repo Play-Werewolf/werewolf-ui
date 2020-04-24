@@ -6,13 +6,13 @@ import GameScreen from "./components/screens/Game/GameScreen";
 function App() {
   return (
     <div>
-    <GameScreen announcement={
-      <div>
-        They were probably cursed by the <strong style={{color: "violet"}}>Death Witch</strong>
-      </div>
-    } />
+      <GameScreen announcement={
+        <div>
+          They were probably cursed by the <strong style={{color: "violet"}}>Death Witch</strong>
+        </div>
+      } />
 
-    <ModalProvider />
+      <ModalProvider />
     </div>
   );
 }
