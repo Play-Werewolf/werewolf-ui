@@ -6,12 +6,7 @@ import GameScreen from "./components/screens/Game/GameScreen";
 function App() {
   return (
     <div>
-      <GameScreen announcement={
-        <div>
-          They were probably cursed by the <strong style={{color: "violet"}}>Death Witch</strong>
-        </div>
-      } />
-
+      <GameScreen auth={{type: "anonymous", nickname: "Rally"}} roomId={null} />
       <ModalProvider />
     </div>
   );

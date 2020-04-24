@@ -8,8 +8,10 @@ import FlexContainer from "./FlexContainer";
 import Overlay from "./Overlay";
 import Button from "./Button";
 
+import NotificationsView from "../NotificationsView";
+
 export const Modal = {
-  open: (title, contents) => {},
+  open: (contents) => {},
   hide: () => {},
 };
 window.Modal = Modal;
@@ -18,138 +20,32 @@ window.Modal = Modal;
 window.s = () =>
   Modal.open(
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <ModalHeader>Notefications:</ModalHeader>
+      <ModalHeader>Notifications:</ModalHeader>
 
-      <div style={{flex: 1, overflowY: "scroll"}}>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
-      <FlexBox>
-        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
-        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
-      </FlexBox>
+      <div style={{ flex: 1, overflowY: "auto" }}>
+        <NotificationsView
+          data={[
+            { color: "red", text: "You were attacked by a werewolf!" },
+            {
+              color: "lime",
+              text: "You were attacked but someone fought off your attacker",
+            },
+            { color: "", text: "Good morning, town" },
+          ]}
+        />
       </div>
-      
 
-      <div style={{flex: 1}}>&nbsp;</div>
-      
+      <br />
+
       <OptionsBar>
-        <Button style={{ backgroundColor: "#333" }}>Cancel</Button>
+        <div style={{ flex: 1 }}>&nbsp;</div>
+        <Button
+          style={{ backgroundColor: "#333" }}
+          onClick={() => Modal.close()}
+        >
+          Close
+        </Button>
       </OptionsBar>
-      
     </div>
   );
 
@@ -213,7 +109,6 @@ export const ModalProvider = () => {
   );
 };
 
-
 const AvatarImage = styled.img`
   vertical-align: middle;
   width: 40px;
@@ -230,5 +125,5 @@ const FlexBox = styled.div`
 const OptionsBar = styled.div`
   overflow: hidden;
   background-color: ${colors.main_background};
-  
+  display: flex;
 `;
