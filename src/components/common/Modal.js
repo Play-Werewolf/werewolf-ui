@@ -17,23 +17,138 @@ window.Modal = Modal;
 
 window.s = () =>
   Modal.open(
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <ModalHeader>Notefications:</ModalHeader>
-      <table style={{ width: "100%"}} >
-        <tbody style={{display: "block", overflow: "auto", width: "100%"}}>
-          <tr style={{display: "inline-box", width: "100%"}}>
-            <th><AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/></th>
-            <th style={{ display: "-webkit-box", width: "50%", whiteSpace: "nowrap"}}>you have been killed by the Werewolfs</th>
-          </tr>
-          <tr>
-            <th><AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/></th>
-            <th><div style={{ backgroundColor: colors.main }}>Hello</div></th>
-          </tr>
-        </tbody>
-      </table>
-      <div>
-        <Button style={{ backgroundColor: "#333" }}>Cancel</Button>
+
+      <div style={{flex: 1, overflowY: "scroll"}}>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
+      <FlexBox>
+        <AvatarImage src={require("../../assets/images/ww.jpg")} alt="Avatar" className="avatar"/>
+        <div style={{ alignSelf: "center"}} >you have been killed by the Werewolfs</div>
+      </FlexBox>
       </div>
+      
+
+      <div style={{flex: 1}}>&nbsp;</div>
+      
+      <OptionsBar>
+        <Button style={{ backgroundColor: "#333" }}>Cancel</Button>
+      </OptionsBar>
       
     </div>
   );
@@ -104,4 +219,16 @@ const AvatarImage = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
+`;
+
+const FlexBox = styled.div`
+  overflow: auto;
+  flex-direction: row;
+  display: flex;
+`;
+
+const OptionsBar = styled.div`
+  overflow: hidden;
+  background-color: ${colors.main_background};
+  
 `;

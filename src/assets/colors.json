@@ -2,5 +2,6 @@
     "main": "#AC6635",
     "elevated": "",
     "dark": "#1A1714",
-    "border": "#CCCCCC"
+    "border": "#CCCCCC",
+    "main_background": "#E2E2E2"
 }
