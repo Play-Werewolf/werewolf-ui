@@ -18,6 +18,9 @@ class GameManager {
     this._start_connection();
 
     window.game = this; // TODO: Remove (debug)
+
+    // Events that need special care
+    this.on_leave = () => {};
   }
 
   async _start_connection() {
@@ -44,7 +47,7 @@ class GameManager {
     
     if (this.roomId && this.actualRoomId && this.roomId !== this.actualRoomId) {
       console.info("Room number mismatching requested room. Leaving current room");
-      await this.leave_room();
+      await this.leave_room(true); // Not raising an event
       console.info("Returned to matchmaking lobby");
     }
 
@@ -187,10 +190,14 @@ class GameManager {
     });
   }
 
-  leave_room() {
+  leave_room(no_event) {
     return new Promise((resolve) => {
       this.socket.send("leave_room");
-      this.socket.once("room_status", (args) => resolve(args));
+      this.socket.once("room_status", (args) => {
+        if (!no_event)
+          this.on_leave();
+        resolve(args);
+      });
     });
   }
 

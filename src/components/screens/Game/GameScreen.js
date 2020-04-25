@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import FlexContainer from "../../common/FlexContainer";
 import BottomTabs from "../../navigation/BottomTabs";
+import LobbyHeader from "./headers/LobbyHeader";
 
 import GameLobby from "./GameLobby";
 import StatusOverlay from "./StatusOverlay";
@@ -44,6 +45,10 @@ class GameScreen extends React.Component {
       roomId: this.roomId,
       authentication: this.props.auth
     });
+
+    this.game.on_leave = () => {
+      this.props.history.push("/");
+    };
   }
 
   getStatus() {
@@ -72,9 +77,14 @@ class GameScreen extends React.Component {
     const { game, state, player, log, connection, session, room } = this.state;
     const ChildComponent = state ? getComponent(state.state) : null;
     const errorMessage = this.getStatus();
+
+    if (errorMessage) {
+      return <StatusOverlay text={errorMessage} />;
+    }
+
     return (
       <FlexContainer>
-      { errorMessage && <StatusOverlay text={errorMessage} />}
+      <LobbyHeader state={this.state} game={this.game}/>
 
       {/*<div style={{wordWrap: "break-word"}}>
         Connection status: {JSON.stringify(connection)}<br/>

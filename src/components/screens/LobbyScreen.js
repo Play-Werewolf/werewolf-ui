@@ -68,7 +68,7 @@ const LobbyScreen = ({ history }) => {
           Feeling dominant?
         </span>
         <span style={{ display: "block", height: 5 }}>&nbsp;</span>
-        <Button color={colors.main} style={{ width: "50%" }}>
+        <Button color={colors.main} style={{ width: "50%" }} onClick={() => history.push("/game")}>
           Create a new party
         </Button>
       </div>
