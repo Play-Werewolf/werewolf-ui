@@ -93,6 +93,9 @@ class GameManager {
     if (args[1] === "connected") {
       restore.saveSessionId(this.session_id);
     }
+    else {
+      restore.revokeSessionId();
+    }
   }
 
   on_state_update(args) {
