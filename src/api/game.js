@@ -1,4 +1,5 @@
 import { connect } from "./backend";
+import * as restore from "./restore";
 
 class GameManager {
   constructor({
@@ -11,6 +12,7 @@ class GameManager {
     this.update = update;
     this.roomId = roomId;
     this.auth = authentication;
+    this.session_id = null;
 
     this._start_connection();
 
@@ -19,7 +21,19 @@ class GameManager {
 
   async _start_connection() {
     await this.init();
-    await this.authenticate(this.auth);
+    if (restore.getSavedSession()) {
+      try {
+        await this.restore_session(restore.getSavedSession());
+      }
+      catch {
+        restore.revokeSessionId();
+        await this.authenticate(this.auth);
+      }
+    }
+    else {
+      await this.authenticate(this.auth);
+    }
+    
     await this.create_room();
     console.log("Authenticated");
   }
@@ -58,6 +72,7 @@ class GameManager {
           nickname: args[5],
         }
       });
+      this.session_id = args[2];
     }
     else {
       this.update({
@@ -75,6 +90,9 @@ class GameManager {
         roomId: args[2] || null,
       }
     });
+    if (args[1] === "connected") {
+      restore.saveSessionId(this.session_id);
+    }
   }
 
   on_state_update(args) {
@@ -96,6 +114,16 @@ class GameManager {
     default:
       return new Promise((_, reject) => setTimeout(reject, 0));
     }
+  }
+
+  restore_session(session_id) {
+    return new Promise((resolve, reject) => {
+      this.socket.send("restore_session\x00" + session_id);
+      this.socket.once("session_status", (args) => {
+        if (args[1] == "authenticated") resolve(args);
+        else reject(args);
+      })
+    })
   }
 
   authenticate_anonymous(nickname) {

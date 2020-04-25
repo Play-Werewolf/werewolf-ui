@@ -4,16 +4,16 @@ import PlayerList from "./PlayerList";
 
 export default ({ game, state, player, log}) => {
 
-    if (!game || !game.users)
+    if (!game || !game.players)
         return null;
 
-    const users = game.users.map(u => ({
+    const players = game.players.map(u => ({
         ...u,
         votes: 0,
-        color: "white", // TODO: Implement some avatar protocol
+        color: "skyblue", // TODO: Implement some avatar protocol
     }));
 
     return (
-        <PlayerList users={users} />
+        <PlayerList players={players} />
     );
 };

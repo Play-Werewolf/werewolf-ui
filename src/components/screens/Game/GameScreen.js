@@ -4,6 +4,7 @@ import FlexContainer from "../../common/FlexContainer";
 import BottomTabs from "../../navigation/BottomTabs";
 
 import GameLobby from "./GameLobby";
+import StatusOverlay from "./StatusOverlay";
 
 import GameManager from "../../../api/game";
 
@@ -30,6 +31,8 @@ class GameScreen extends React.Component {
       player: {},
       log: []
     };
+
+    this.getStatus = this.getStatus.bind(this);
   }
 
   componentDidMount() {
@@ -40,18 +43,40 @@ class GameScreen extends React.Component {
     });
   }
 
+  getStatus() {
+    if (!this.state.connection || !this.state.connection.connected) {
+      return this.state.connection.status || "Connecting to server...";
+    }
+    if (!this.state.session) {
+      return "Authenticating...";
+    }
+    if (this.state.session.status !== "authenticated") {
+      return "Authentication error";
+    }
+    if (!this.state.room || !this.state.room.status) {
+      return "Joining room...";
+    }
+    if (this.state.room.status !== "connected") {
+      return "Room connection error"; 
+    }
+    return null;
+  }
+
   render() {
     const { game, state, player, log, connection, session, room } = this.state;
     const ChildComponent = state ? getComponent(state.state) : null;
+    const errorMessage = this.getStatus();
     return (
       <FlexContainer>
-      <pre>
+      { errorMessage && <StatusOverlay text={errorMessage} />}
+
+      <div style={{wordWrap: "break-word"}}>
         Connection status: {JSON.stringify(connection)}<br/>
         Session status: {JSON.stringify(session)}<br/>
         Room status: {JSON.stringify(room)}<br/>
         State: {JSON.stringify(state)}<br/>
         Game: {JSON.stringify(game)}<br/>
-      </pre>
+      </div>
         {ChildComponent && (
           <ChildComponent game={game} state={state} player={player} log={log} />
         )}
