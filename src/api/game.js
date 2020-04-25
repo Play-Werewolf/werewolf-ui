@@ -6,98 +6,150 @@ class GameManager {
     roomId,
     authentication, // Anonymous or token
   }) {
-    this._socket = null;
+    this.socket = null;
 
     this.update = update;
     this.roomId = roomId;
     this.auth = authentication;
 
-    this.init();
+    this._start_connection();
+
+    window.game = this; // TODO: Remove (debug)
   }
 
-  init() {
-    // TODO: Not use a fixed URL for this
-    connect("ws://127.0.0.1")
-      .then((conn) => {
-        this.startConnection(conn);
-      })
-      .catch((e) => {
-        this.update({
-          connection: {
-            connected: false,
-            error: e.message,
-          },
-        });
-      });
+  async _start_connection() {
+    await this.init();
+    await this.authenticate(this.auth);
+    await this.create_room();
+    console.log("Authenticated");
   }
 
-  startConnection(conn) {
-    this.conn = { connected: true };
-    this.update({ connection: this.conn });
+  async init() {
+    try {
+      this.socket = await connect("ws://127.0.0.1");
+      this.update({ connection: { connected: true } });
 
-    this._socket = conn;
-
-    console.log("authenticating");
-    this.authenticate(this.auth)
-      .then((session) => {
+      this.socket.on("close", () => {
         this.update({
-          session: {
-            status: session[1],
-            id: session[2],
-            nickname: session[5],
-          },
+          connection: { connected: false, status: "Disconnected" },
         });
-        return this.initRoom();
-      })
-      .then((room) => {
-        console.log("room", room);
-      })
-      .catch((err) => {
-        console.log("Error", err);
-        if (!err.update) return;
-        this.update(err.update);
       });
+
+      this.socket.on("session_status", this.on_session_status.bind(this));
+      this.socket.on("room_status", this.on_room_status.bind(this));
+      this.socket.on("state_update", this.on_state_update.bind(this));
+      this.socket.on("game_update", this.on_game_update.bind(this));
+      this.socket.on("*", (msg) => console.log("Got message: ", msg));
+
+    } catch (e) {
+      console.error(e);
+      this.pdate({
+        connection: { connected: false, status: "Connection error" },
+      });
+    }
+  }
+
+  on_session_status(args) {
+    if (args[1] === "authenticated") {
+      this.update({
+        session: {
+          status: args[1],
+          id: args[2],
+          nickname: args[5],
+        }
+      });
+    }
+    else {
+      this.update({
+        session: {
+          status: args[1],
+        }
+      });
+    }
+  }
+
+  on_room_status(args) {
+    this.update({
+      room: {
+        status: args[1],
+        roomId: args[2] || null,
+      }
+    });
+  }
+
+  on_state_update(args) {
+    this.update({
+      state: JSON.parse(args[1])
+    });
+  }
+
+  on_game_update(args) {
+    this.update({
+      game: JSON.parse(args[1])
+    });
   }
 
   authenticate(auth) {
     switch (auth.type) {
-      case "anonymous":
-        return this.authenticateAnonymous(auth.nickname);
-      default:
-        return new Promise((_, reject) => setTimeout(reject, 1));
+    case "anonymous":
+      return this.authenticate_anonymous(auth.nickname);
+    default:
+      return new Promise((_, reject) => setTimeout(reject, 0));
     }
   }
 
-  authenticateAnonymous(nickname) {
+  authenticate_anonymous(nickname) {
     return new Promise((resolve, reject) => {
-      this._socket.send("authenticate_anonymous\x00" + nickname);
-      this._socket.once("session_status", (args) => {
-        if (args[1] == "authenticated") resolve(args);
-        else reject({ update: { session: { status: args[1] } } });
+      if (!this.socket)
+        reject({error: "Not connected"});
+      
+      this.socket.send("authenticate_anonymous\x00" + nickname);
+      this.socket.once("session_status", (args) => {
+        if (args[1] === "authenticated")
+          resolve(args);
+        else
+          reject(args);
       });
     });
   }
 
-  initRoom() {
-    if (!this.roomId) {
-      return this.createRoom();
-    } else {
-      return this.joinRoom(this.roomId);
-    }
-  }
-
-  createRoom() {
+  create_room() {
     return new Promise((resolve, reject) => {
-      this._socket.send("create_room");
-      this._socket.once("room_status", (args) => {
-        console.log("Room status: ", args);
-        if (args[1] == "connected") resolve(args);
-        else reject({ update: {room: null}});
+      this.socket.send("create_room");
+      this.socket.once("room_status", (args) => {
+        if (args[1] === "connected") resolve(args);
+        else reject(args);
       });
     });
   }
 
-  joinRoom(roomId) {}
+  leave_room() {
+    return new Promise((resolve) => {
+      this.socket.send("leave_room");
+      this.socket.once("room_status", (args) => resolve(args));
+    });
+  }
+
+  join_room(room_id) {
+    return new Promise((resolve, reject) => {
+      if (!this.socket)
+        reject({error: "Not connected"});
+
+      this.socket.send("join_room\x00" + room_id.padStart(4, "0"));
+      this.socket.once("room_status", (args) => {
+        if (args[1] === "connected") resolve(args);
+        else reject(args);
+      });
+    });
+  }
+
+  ready() {
+    this.socket.send("ready");
+  }
+
+  not_ready() {
+    this.socket.send("not_ready");
+  }
 }
 
 export default GameManager;

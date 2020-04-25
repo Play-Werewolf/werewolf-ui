@@ -24,6 +24,7 @@ class GameScreen extends React.Component {
     this.state = {
       connection: {},
       session: null,
+      room: {},
       game: {},
       state: {},
       player: {},
@@ -40,12 +41,17 @@ class GameScreen extends React.Component {
   }
 
   render() {
-    const { game, state, player, log, connection, session } = this.state;
+    const { game, state, player, log, connection, session, room } = this.state;
     const ChildComponent = state ? getComponent(state.state) : null;
     return (
       <FlexContainer>
+      <pre>
         Connection status: {JSON.stringify(connection)}<br/>
-        Session status: {JSON.stringify(session)}
+        Session status: {JSON.stringify(session)}<br/>
+        Room status: {JSON.stringify(room)}<br/>
+        State: {JSON.stringify(state)}<br/>
+        Game: {JSON.stringify(game)}<br/>
+      </pre>
         {ChildComponent && (
           <ChildComponent game={game} state={state} player={player} log={log} />
         )}
