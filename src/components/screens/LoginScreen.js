@@ -14,10 +14,6 @@ const LoginScreen = ({setLogin, history}) => {
         localStorage.setItem("anonymous_nickname", username); // TODO: Change... This sucks
         setLogin({ type: "anonymous", nickname: username }); // TODO: Extend to work with real login
     };
-    
-    if (localStorage.getItem("anonymous_nickname")) {
-        doLogin(localStorage.getItem("anonymous_nickname"), "");
-    }
 
     return (
         <FlexContainer>

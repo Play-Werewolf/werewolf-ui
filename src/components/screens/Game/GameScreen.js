@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 
 import FlexContainer from "../../common/FlexContainer";
 import BottomTabs from "../../navigation/BottomTabs";
@@ -33,12 +34,14 @@ class GameScreen extends React.Component {
     };
 
     this.getStatus = this.getStatus.bind(this);
+
+    this.roomId = props.match.params.roomId || null;
   }
 
   componentDidMount() {
     this.game = new GameManager({
       update: this.setState.bind(this),
-      roomId: this.props.roomId,
+      roomId: this.roomId,
       authentication: this.props.auth
     });
   }
@@ -56,6 +59,9 @@ class GameScreen extends React.Component {
     if (!this.state.room || !this.state.room.status) {
       return "Joining room...";
     }
+    if (this.state.room.status === "error") {
+      return this.state.room.error;
+    }
     if (this.state.room.status !== "connected") {
       return "Room connection error"; 
     }
@@ -70,13 +76,13 @@ class GameScreen extends React.Component {
       <FlexContainer>
       { errorMessage && <StatusOverlay text={errorMessage} />}
 
-      <div style={{wordWrap: "break-word"}}>
+      {/*<div style={{wordWrap: "break-word"}}>
         Connection status: {JSON.stringify(connection)}<br/>
         Session status: {JSON.stringify(session)}<br/>
         Room status: {JSON.stringify(room)}<br/>
         State: {JSON.stringify(state)}<br/>
         Game: {JSON.stringify(game)}<br/>
-      </div>
+    </div>*/}
         {ChildComponent && (
           <ChildComponent game={game} state={state} player={player} log={log} />
         )}
@@ -88,7 +94,7 @@ class GameScreen extends React.Component {
   }
 }
 
-export default GameScreen;
+export default withRouter(GameScreen);
 
 // export default ({ roomId }) => {
 //   const [conn, setConnection] = useState(null);

@@ -10,7 +10,8 @@ class GameManager {
     this.socket = null;
 
     this.update = update;
-    this.roomId = roomId;
+    this.roomId = roomId ? roomId.padStart(4, "0") : null;
+    this.actualRoomId = null;
     this.auth = authentication;
     this.session_id = null;
 
@@ -20,22 +21,46 @@ class GameManager {
   }
 
   async _start_connection() {
+    console.info("Connecting to game server");
     await this.init();
+    console.info("Connected to game server");
     if (restore.getSavedSession()) {
       try {
+        console.info("Trying to restore session...");
         await this.restore_session(restore.getSavedSession());
       }
       catch {
+        console.info("Failed to restore session. Re-authenticating");
         restore.revokeSessionId();
         await this.authenticate(this.auth);
+        console.info("Authenticated.");
       }
     }
     else {
+      console.info("Authenticating...");
       await this.authenticate(this.auth);
+      console.info("Authenticated");
     }
     
-    await this.create_room();
-    console.log("Authenticated");
+    if (this.roomId && this.actualRoomId && this.roomId !== this.actualRoomId) {
+      console.info("Room number mismatching requested room. Leaving current room");
+      await this.leave_room();
+      console.info("Returned to matchmaking lobby");
+    }
+
+    console.info("The requested room ID is: ", this.roomId);
+    
+    if (this.roomId) {
+      console.info("Joining room " + this.roomId);
+      await this.join_room(this.roomId);
+      console.info("Joined room ");
+    }
+    else {
+      console.info("Creating room");
+      await this.create_room();
+      console.info("Room created");
+    }
+    console.info("Initialization sequence finished");
   }
 
   async init() {
@@ -53,7 +78,7 @@ class GameManager {
       this.socket.on("room_status", this.on_room_status.bind(this));
       this.socket.on("state_update", this.on_state_update.bind(this));
       this.socket.on("game_update", this.on_game_update.bind(this));
-      this.socket.on("*", (msg) => console.log("Got message: ", msg));
+      // this.socket.on("*", (msg) => console.log("Got message: ", msg));
 
     } catch (e) {
       console.error(e);
@@ -84,16 +109,24 @@ class GameManager {
   }
 
   on_room_status(args) {
-    this.update({
-      room: {
-        status: args[1],
-        roomId: args[2] || null,
-      }
-    });
     if (args[1] === "connected") {
+      this.update({
+        room: {
+          status: args[1],
+          roomId: args[2] || null,
+        }
+      });
       restore.saveSessionId(this.session_id);
+      this.actualRoomId = args[2];
+      window.history.replaceState(null, null, "/game/" + this.actualRoomId);
     }
     else {
+      this.update({
+        room: {
+          status: args[1],
+          error: args[2] || null,
+        }
+      });
       restore.revokeSessionId();
     }
   }
@@ -123,7 +156,7 @@ class GameManager {
     return new Promise((resolve, reject) => {
       this.socket.send("restore_session\x00" + session_id);
       this.socket.once("session_status", (args) => {
-        if (args[1] == "authenticated") resolve(args);
+        if (args[1] === "authenticated") resolve(args);
         else reject(args);
       })
     })
@@ -166,7 +199,7 @@ class GameManager {
       if (!this.socket)
         reject({error: "Not connected"});
 
-      this.socket.send("join_room\x00" + room_id.padStart(4, "0"));
+      this.socket.send("join_room\x00" + room_id);
       this.socket.once("room_status", (args) => {
         if (args[1] === "connected") resolve(args);
         else reject(args);

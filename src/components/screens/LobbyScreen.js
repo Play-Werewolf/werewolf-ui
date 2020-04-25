@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 
 import colors from "../../assets/colors";
 
@@ -8,7 +9,7 @@ import Button from "../common/Button";
 import FlexContainer from "../common/FlexContainer";
 import BottomTabs from "../navigation/BottomTabs";
 
-const LobbyScreen = () => {
+const LobbyScreen = ({ history }) => {
   const [roomId, setRoomId] = useState("");
 
   return (
@@ -48,7 +49,7 @@ const LobbyScreen = () => {
           value={roomId}
           onChange={(e) => setRoomId(e.target.value)}
         />
-        <Button color={colors.main} style={{ width: "80%" }}>
+        <Button color={colors.main} style={{ width: "80%" }} onClick={() => history.push("/game/" + roomId)}>
           Join an existing party
         </Button>
       </div>
@@ -76,4 +77,4 @@ const LobbyScreen = () => {
   );
 };
 
-export default LobbyScreen;
+export default withRouter(LobbyScreen);

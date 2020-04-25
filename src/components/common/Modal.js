@@ -109,18 +109,18 @@ export const ModalProvider = () => {
   );
 };
 
-const AvatarImage = styled.img`
-  vertical-align: middle;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-`;
+// const AvatarImage = styled.img`
+//   vertical-align: middle;
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 50%;
+// `;
 
-const FlexBox = styled.div`
-  overflow: auto;
-  flex-direction: row;
-  display: flex;
-`;
+// const FlexBox = styled.div`
+//   overflow: auto;
+//   flex-direction: row;
+//   display: flex;
+// `;
 
 const OptionsBar = styled.div`
   overflow: hidden;

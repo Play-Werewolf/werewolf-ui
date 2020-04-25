@@ -9,16 +9,24 @@ import SignupScreen from "./components/screens/SignupScreen";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App({auth}) {
+import { setLogin } from "./redux/actions/auth";
+
+function App({auth, setLogin}) {
+
+  
   if (!auth.loggedIn) {
+    if (localStorage.getItem("anonymous_nickname")) {
+      setLogin({type: "anonymous", nickname: localStorage.getItem("anonymous_nickname")});
+    }
+
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
-            <LoginScreen />
-          </Route>
           <Route path="/signup">
-            <SignupScreen />
+          <SignupScreen />
+          </Route>
+          <Route>
+            <LoginScreen />
           </Route>
         </Switch>
       </Router>
@@ -32,8 +40,11 @@ function App({auth}) {
           <Route exact path="/">
             <LobbyScreen />
           </Route>
-          <Route path="/play">
-            <GameScreen auth={auth} />
+          <Route path="/game/:roomId">
+          <GameScreen auth={auth.auth} />
+          </Route>
+          <Route path="/game">
+            <GameScreen auth={auth.auth} />
           </Route>
         </Switch>
       </Router>
@@ -45,4 +56,4 @@ function App({auth}) {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {setLogin})(App);
