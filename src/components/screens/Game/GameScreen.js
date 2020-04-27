@@ -89,7 +89,7 @@ class GameScreen extends React.Component {
   }
 
   render() {
-    const { game, state, player, log, connection, session, room } = this.state;
+    const { game, state } = this.state;
     const ChildComponent = state ? getComponent(state.state) : null;
     const Header = state ? getHeader(state.state) : null;
     const errorMessage = this.getStatus();
@@ -118,7 +118,7 @@ class GameScreen extends React.Component {
         Game: {JSON.stringify(game)}<br/>
         </div>*/}
         {Header && <Header state={this.state} game={this.game} />}
-        {ChildComponent && <ChildComponent game={game} state={state} player={player} log={log} />}
+        {ChildComponent && <ChildComponent game={game} state={this.state} />}
 
         <div style={{ flex: 1 }}>&nbsp;</div>
         <BottomTabs />

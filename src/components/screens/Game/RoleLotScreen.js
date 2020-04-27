@@ -2,6 +2,6 @@ import React from "react";
 
 export default ({state, game}) => (
     <div>
-        Your role: {JSON.stringify(game.player)}
+        Your role: {state.player.role}
     </div>
-);
+); // TODO: Improve role display
