@@ -13,7 +13,7 @@ export default ({ game, state, player, log}) => {
         ...u,
         votes: 0,
         color: "skyblue", // TODO: Implement some avatar protocol
-        highlight: state.readyPlayers.includes(u.id) ? "lime" : null,
+        highlight: state.readyPlayers.includes(u.id) ? "green" : null,
     }));
 
     return (

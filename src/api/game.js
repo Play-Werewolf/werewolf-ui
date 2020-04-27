@@ -81,6 +81,7 @@ class GameManager {
       this.socket.on("room_status", this.on_room_status.bind(this));
       this.socket.on("state_update", this.on_state_update.bind(this));
       this.socket.on("game_update", this.on_game_update.bind(this));
+      this.socket.on("player_update", this.on_player_update.bind(this));
       // this.socket.on("*", (msg) => console.log("Got message: ", msg));
 
     } catch (e) {
@@ -143,6 +144,12 @@ class GameManager {
   on_game_update(args) {
     this.update({
       game: JSON.parse(args[1])
+    });
+  }
+
+  on_player_update(args) {
+    this.update({
+      player: JSON.parse(args[1])
     });
   }
 

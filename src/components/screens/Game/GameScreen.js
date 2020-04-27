@@ -6,17 +6,32 @@ import BottomTabs from "../../navigation/BottomTabs";
 import LobbyHeader from "./headers/LobbyHeader";
 
 import GameLobby from "./GameLobby";
+import GameInit from "./GameInit";
 import StatusOverlay from "./StatusOverlay";
 
 import GameManager from "../../../api/game";
+import RoleLotScreen from "./RoleLotScreen";
 
 const getComponent = (state) => {
   switch (state) {
     case "LobbyState":
     case "DiscussionState":
-        return GameLobby;
+      return GameLobby;
+    case "GameInitState":
+      return GameInit;
+    case "RolesLotState":
+      return RoleLotScreen;
     default:
-        return null;
+      return null;
+  }
+};
+
+const getHeader = (state) => {
+  switch (state) {
+    case "LobbyState":
+      return LobbyHeader;
+    default:
+      return null;
   }
 };
 
@@ -31,7 +46,7 @@ class GameScreen extends React.Component {
       game: {},
       state: {},
       player: {},
-      log: []
+      log: [],
     };
 
     this.getStatus = this.getStatus.bind(this);
@@ -43,7 +58,7 @@ class GameScreen extends React.Component {
     this.game = new GameManager({
       update: this.setState.bind(this),
       roomId: this.roomId,
-      authentication: this.props.auth
+      authentication: this.props.auth,
     });
 
     this.game.on_leave = () => {
@@ -68,7 +83,7 @@ class GameScreen extends React.Component {
       return this.state.room.error;
     }
     if (this.state.room.status !== "connected") {
-      return "Room connection error"; 
+      return "Room connection error";
     }
     return null;
   }
@@ -76,26 +91,34 @@ class GameScreen extends React.Component {
   render() {
     const { game, state, player, log, connection, session, room } = this.state;
     const ChildComponent = state ? getComponent(state.state) : null;
+    const Header = state ? getHeader(state.state) : null;
     const errorMessage = this.getStatus();
 
     if (errorMessage) {
       return <StatusOverlay text={errorMessage} />;
     }
 
+    // For debugging. TODO: Remove!
+    // return (
+    //   <FlexContainer>
+    //     <GameInit state={this.state} game={this.game}/>
+    //   </FlexContainer>
+    // )
+
+    console.log(this.state);
+
     return (
       <FlexContainer>
-      <LobbyHeader state={this.state} game={this.game}/>
-
-      {/*<div style={{wordWrap: "break-word"}}>
+      
+        {/*<div style={{wordWrap: "break-word"}}>
         Connection status: {JSON.stringify(connection)}<br/>
         Session status: {JSON.stringify(session)}<br/>
         Room status: {JSON.stringify(room)}<br/>
         State: {JSON.stringify(state)}<br/>
         Game: {JSON.stringify(game)}<br/>
-    </div>*/}
-        {ChildComponent && (
-          <ChildComponent game={game} state={state} player={player} log={log} />
-        )}
+        </div>*/}
+        {Header && <Header state={this.state} game={this.game} />}
+        {ChildComponent && <ChildComponent game={game} state={state} player={player} log={log} />}
 
         <div style={{ flex: 1 }}>&nbsp;</div>
         <BottomTabs />
@@ -114,7 +137,7 @@ export default withRouter(GameScreen);
 //   const [state, updateState] = useState(null);
 //   const [player, updatePlayer] = useState(null);
 //   const [log, updateLog] = useState([]);
-  
+
 //   window.uG = updateGame;
 //   window.uS = updateState;
 //   window.uP = updatePlayer;
@@ -145,6 +168,5 @@ export default withRouter(GameScreen);
 //       setConnectionError("Could not connect to server");
 //     });
 //   }, []);
-  
-  
+
 // };
