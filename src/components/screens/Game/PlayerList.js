@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import colors from "../../../assets/colors.json";
-import FlexContainer from "../../common/FlexContainer";
-import BottomTabs from "../../navigation/BottomTabs";
 
-export default ({ players, focusedUser }) => {
+export default ({ players }) => {
+  console.log(players);
   return (
     <div style={{ maxWidth: 800, alignSelf: "center", width: "100%" }}>
       {players !== undefined &&
@@ -13,7 +12,7 @@ export default ({ players, focusedUser }) => {
           <CharacterBox
             key={u.id}
             background={u.color}
-            highlight={focusedUser === u.id}
+            highlight={u.highlight}
             votes={u.votes}
             nickname={u.name}
             avatarURL={
@@ -34,7 +33,8 @@ const CharacterBox = ({
   avatarURL,
 }) => (
   <CharacterOutline>
-    <CharacterFrame style={{ background }}>
+  <CharacterFrame style={{ background }}>
+      {highlight && <SelectionBorder color={highlight === true ? colors.main : highlight} />}
       <img
         style={{ width: "65%", height: "65%", margin: "auto" }}
         alt="nope"
@@ -55,7 +55,7 @@ const CharacterBox = ({
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
+        >
         <div style={{ alignSelf: "center", marginBottom: -3 }}>{nickname}</div>
       </div>
       {votes > 0 && (
@@ -75,8 +75,7 @@ const CharacterBox = ({
           {votes < 10 && <b>&nbsp;</b>}
         </div>
       )}
-
-      {highlight && <SelectionBorder />}
+      {console.log("HIGHLIGHT:", highlight === true ? colors.main : highlight)}
     </CharacterFrame>
   </CharacterOutline>
 );
@@ -106,7 +105,7 @@ const CharacterFrame = styled.div`
 
 const SelectionBorder = styled.div`
   box-sizing: border-box;
-  border: 4px solid ${colors.main}66;
+  border: 4px solid ${props => props.color};
   top: 0;
   bottom: 0;
   left: 0;
