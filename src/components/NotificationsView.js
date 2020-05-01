@@ -1,7 +1,6 @@
 import React from "react";
 
 export default ({ data }) => {
-  console.log(data);
   return data.map((el, i) => (
     <div
       key={i}

@@ -4,12 +4,10 @@ import PlayerList from "./PlayerList";
 
 export default ({ game, state }) => {
 
-    if (!game || !game.players)
+    if (!state.game || !state.game.players)
         return null;
 
-    console.log(game.players, state.state.readyPlayers, state.state.readyPlayers.includes(game.players[0].id));
-
-    const players = game.players.map(u => ({
+    const players = state.game.players.map(u => ({
         ...u,
         votes: 0,
         color: "skyblue", // TODO: Implement some avatar protocol

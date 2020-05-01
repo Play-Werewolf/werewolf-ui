@@ -36,6 +36,7 @@ function Communicator(socket) {
   }
 
   this.send = (msg) => {
+    console.warn("Sending", msg);
     this.socket.send(msg);
   }
 }

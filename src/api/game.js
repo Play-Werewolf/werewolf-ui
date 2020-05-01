@@ -228,6 +228,33 @@ class GameManager {
   not_ready() {
     this.socket.send("not_ready");
   }
+
+  // Cannot wait on this one
+  // bool can be either true or false.
+  _send_boolean_action(bool) {
+    this.socket.send("set_boolean_action\x00" + bool);
+  }
+
+  // player1 should be a player uuid
+  _send_unary_action(player1) {
+    this.socket.send("set_unary_action\x00" + player1);
+  }
+
+  _send_binary_action(player1, player2) {
+    this.socket.send("send_binary_action\x00" + player1 + "\x00" + player2);
+  }
+
+  send_action(pl) {
+    if (pl.length === 2) {
+      this._send_binary_action(pl[0], pl[1]);
+    }
+    if (pl[0].constructor.name === "String") {
+      this._send_unary_action(pl[0]);
+    }
+    else {
+      this._send_boolean_action(pl[0]);
+    }
+  }
 }
 
 export default GameManager;

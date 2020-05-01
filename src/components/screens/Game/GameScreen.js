@@ -7,6 +7,8 @@ import LobbyHeader from "./headers/LobbyHeader";
 
 import GameLobby from "./GameLobby";
 import GameInit from "./GameInit";
+import NightTransition from "./NightTransition";
+import NightActive from "./NightActive";
 import StatusOverlay from "./StatusOverlay";
 
 import GameManager from "../../../api/game";
@@ -21,6 +23,10 @@ const getComponent = (state) => {
       return GameInit;
     case "RolesLotState":
       return RoleLotScreen;
+    case "NightTransitionState":
+      return NightTransition;
+    case "SeparatedNightState":
+      return NightActive; // TODO: Wrap in a night component
     default:
       return null;
   }
@@ -64,6 +70,12 @@ class GameScreen extends React.Component {
     this.game.on_leave = () => {
       this.props.history.push("/");
     };
+
+    window.debug = () => {
+      this.setState({
+        state: {state: "SeparatedNightState", timer: 30}
+      })
+    }
   }
 
   getStatus() {
@@ -118,7 +130,7 @@ class GameScreen extends React.Component {
         Game: {JSON.stringify(game)}<br/>
         </div>*/}
         {Header && <Header state={this.state} game={this.game} />}
-        {ChildComponent && <ChildComponent game={game} state={this.state} />}
+        {ChildComponent && <ChildComponent game={this.game} state={this.state} />}
 
         <div style={{ flex: 1 }}>&nbsp;</div>
         <BottomTabs />
