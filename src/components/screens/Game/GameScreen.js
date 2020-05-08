@@ -8,8 +8,11 @@ import LobbyHeader from "./headers/LobbyHeader";
 import GameLobby from "./GameLobby";
 import GameInit from "./GameInit";
 import NightTransition from "./NightTransition";
-import NightActive from "./NightActive";
+import DayTransition from "./DayTransition";
+import SeparatedNight from "./SeparatedNight";
+import NightInactive from "./NightInactive";
 import StatusOverlay from "./StatusOverlay";
+import DeathAnnouncements from "./DeathAnnouncements";
 
 import GameManager from "../../../api/game";
 import RoleLotScreen from "./RoleLotScreen";
@@ -17,7 +20,6 @@ import RoleLotScreen from "./RoleLotScreen";
 const getComponent = (state) => {
   switch (state) {
     case "LobbyState":
-    case "DiscussionState":
       return GameLobby;
     case "GameInitState":
       return GameInit;
@@ -26,7 +28,13 @@ const getComponent = (state) => {
     case "NightTransitionState":
       return NightTransition;
     case "SeparatedNightState":
-      return NightActive; // TODO: Wrap in a night component
+      return SeparatedNight;
+    case "GoodNightState":
+      return NightInactive;
+    case "DayTransitionState":
+      return DayTransition;
+    case "DeathAnnounceState":
+      return DeathAnnouncements;
     default:
       return null;
   }
@@ -41,6 +49,11 @@ const getHeader = (state) => {
   }
 };
 
+const Screens = {
+  NOTIFICATION: 0,
+  GAME_VIEW: 1,
+};
+
 class GameScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -53,6 +66,8 @@ class GameScreen extends React.Component {
       state: {},
       player: {},
       log: [],
+
+      screen: Screens.GAME_VIEW,
     };
 
     this.getStatus = this.getStatus.bind(this);
@@ -100,38 +115,50 @@ class GameScreen extends React.Component {
     return null;
   }
 
+  render_game_screen(game, state) {
+    const ChildComponent = state ? getComponent(state.state) : null;
+
+    return (
+      <>
+        {ChildComponent && <ChildComponent game={this.game} state={this.state} />}
+      </>
+    )
+  
+  }
+  
+  render_notification_screen(game, state) {
+    return (
+      <>
+        <div>This is the notification view</div>
+      </>
+    );
+  }
+
+  get_render_screen(screen_name, game, state) {
+    switch (this.state.screen) {
+      case Screens.GAME_VIEW:
+        return this.render_game_screen(game, state);
+      case Screens.NOTIFICATION:
+        return this.render_notification_screen(game, state);
+      default:
+        return <div>Fuck you shitty programmer</div>;
+    }
+  }
+  
   render() {
     const { game, state } = this.state;
-    const ChildComponent = state ? getComponent(state.state) : null;
-    const Header = state ? getHeader(state.state) : null;
     const errorMessage = this.getStatus();
-
     if (errorMessage) {
       return <StatusOverlay text={errorMessage} />;
     }
 
-    // For debugging. TODO: Remove!
-    // return (
-    //   <FlexContainer>
-    //     <GameInit state={this.state} game={this.game}/>
-    //   </FlexContainer>
-    // )
-
-    console.log(this.state);
-
+    const Header = state ? getHeader(state.state) : null;
+    const innerElement = this.get_render_screen(this.state.screen, game, state);
+    
     return (
       <FlexContainer>
-      
-        {/*<div style={{wordWrap: "break-word"}}>
-        Connection status: {JSON.stringify(connection)}<br/>
-        Session status: {JSON.stringify(session)}<br/>
-        Room status: {JSON.stringify(room)}<br/>
-        State: {JSON.stringify(state)}<br/>
-        Game: {JSON.stringify(game)}<br/>
-        </div>*/}
         {Header && <Header state={this.state} game={this.game} />}
-        {ChildComponent && <ChildComponent game={this.game} state={this.state} />}
-
+        {innerElement}
         <div style={{ flex: 1 }}>&nbsp;</div>
         <BottomTabs />
       </FlexContainer>
@@ -140,45 +167,3 @@ class GameScreen extends React.Component {
 }
 
 export default withRouter(GameScreen);
-
-// export default ({ roomId }) => {
-//   const [conn, setConnection] = useState(null);
-//   const [connectionError, setConnectionError] = useState(null);
-//   const [session, setSession] = useState({status: "not_authenticated"});
-//   const [game, updateGame] = useState(null);
-//   const [state, updateState] = useState(null);
-//   const [player, updatePlayer] = useState(null);
-//   const [log, updateLog] = useState([]);
-
-//   window.uG = updateGame;
-//   window.uS = updateState;
-//   window.uP = updatePlayer;
-//   window.uL = updateLog;
-
-//   useEffect(() => {
-//     connect("ws://127.0.0.1").then((conn) => {
-//       setConnection(conn);
-//       window.conn = conn; // TODO: Remove (for debug only)
-
-//       console.log("A");
-//       conn.on("close", () => {
-//         alert("Connection closed");
-//       });
-
-//       conn.on("session_status", (args) => {
-//         console.log("Got session status", args);
-//         restore.saveSessionId(args[2]);
-
-//         setSession({
-//           status: args[1],
-//           id: args[2],
-//           nickname: args[5],
-//         });
-//       });
-
-//     }).catch(() => {
-//       setConnectionError("Could not connect to server");
-//     });
-//   }, []);
-
-// };

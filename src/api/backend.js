@@ -44,8 +44,16 @@ function Communicator(socket) {
 function connect(remote_url) {
   return new Promise((resolve, reject) => {
     let socket = new WebSocket(remote_url);
-    socket.onopen = () => resolve(new Communicator(socket));
-    socket.onerror = reject;
+    socket.onopen = () => {
+      socket.onopen = undefined;
+      socket.onerror = undefined;
+      resolve(new Communicator(socket));
+    };
+    socket.onerror = () => {
+      socket.onopen = undefined;
+      socket.onerror = undefined;
+      reject();
+    };
   });
 }
 
