@@ -17,18 +17,16 @@ export default ({ state, game }) => {
     const isReady = state.state.readyPlayers.includes(state.session.id);
     const Btn = isReady ? notReadyBtn : readyBtn;
     return (
-        <Header>
-            &nbsp;
-            <span style={{flex: 1}}>
+        <Header
+            left={
                 <Btn game={game} />
-            </span>
-            
-            <span style={{flex: 1, fontSize: "larger", fontWeight: "bold", textAlign: "center"}}>Room {state.room.roomId}</span>
-            
-            <span style={{flex: 1, textAlign: "right"}}>
+            }
+            center={
+                <span style={{flex: 1, fontSize: "larger", fontWeight: "bold", textAlign: "center"}}>Room {state.room.roomId}</span>
+            }
+            right={
                 <Button narrow color={colors.main} onClick={() => game.leave_room()}>Leave</Button>
-            </span>
-            &nbsp;
-        </Header>
+            }
+        />
     );
 };

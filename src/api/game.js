@@ -86,7 +86,7 @@ class GameManager {
 
     } catch (e) {
       console.error(e);
-      this.pdate({
+      this.update({
         connection: { connected: false, status: "Connection error" },
       });
     }

@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 
 import FlexContainer from "../../common/FlexContainer";
 import BottomTabs from "../../navigation/BottomTabs";
+
+import DefaultHeader from "./headers/DefaultHeader";
 import LobbyHeader from "./headers/LobbyHeader";
 
 import GameLobby from "./GameLobby";
@@ -45,7 +47,7 @@ const getHeader = (state) => {
     case "LobbyState":
       return LobbyHeader;
     default:
-      return null;
+      return DefaultHeader;
   }
 };
 
@@ -155,6 +157,8 @@ class GameScreen extends React.Component {
     const Header = state ? getHeader(state.state) : null;
     const innerElement = this.get_render_screen(this.state.screen, game, state);
     
+    console.log(this.state);
+
     return (
       <FlexContainer>
         {Header && <Header state={this.state} game={this.game} />}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ children }) => {
+export default ({ left, center, right }) => {
   return (
     <div
       style={{
@@ -12,7 +12,19 @@ export default ({ children }) => {
         alignItems: "center",
       }}
     >
-      {children}
+      &nbsp;
+      <span style={{flex: 1}}>
+        {left}
+      </span>
+      
+      <span style={{flex: 1, textAlign: "center"}}>
+        {center}  
+      </span>
+      
+      <span style={{flex: 1, textAlign: "right"}}>
+        {right}
+      </span>
+      &nbsp;
     </div>
   );
 };
