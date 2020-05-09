@@ -48,7 +48,6 @@ const CharacterBox = ({
 }) => (
   <CharacterOutline onClick={onClick}>
     <CharacterFrame style={{ background }}>
-      {highlight && <SelectionBorder color={highlight === true ? colors.main : highlight} />}
       <img
         style={{ width: "65%", height: "65%", margin: "auto" }}
         alt="nope"
@@ -89,6 +88,7 @@ const CharacterBox = ({
           {votes < 10 && <b>&nbsp;</b>}
         </div>
       )}
+      {highlight && <SelectionBorder color={highlight === true ? colors.main : highlight} />}
     </CharacterFrame>
   </CharacterOutline>
 );

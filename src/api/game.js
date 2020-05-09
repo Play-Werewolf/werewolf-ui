@@ -255,6 +255,14 @@ class GameManager {
       this._send_boolean_action(pl[0]);
     }
   }
+
+  vote_player(player_id) {
+    this.socket.send("vote_player\x00" + player_id);
+  }
+
+  unvote_player() {
+    this.socket.send("unvote_player");
+  }
 }
 
 export default GameManager;

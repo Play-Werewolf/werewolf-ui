@@ -28,10 +28,8 @@ export default ({ game, state }) => {
 
     return (
         <>
-            {my_state.key && <GameAnnouncement key={my_state.key}>{my_state.callout}</GameAnnouncement>}
-
-            <h1>Death announcements here (TODO: Set header)</h1>
             <PlayerList players={players} />
+            {my_state.key && <GameAnnouncement key={my_state.key}>{my_state.callout}</GameAnnouncement>}
         </>
     );
 }

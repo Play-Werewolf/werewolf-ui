@@ -15,6 +15,7 @@ import SeparatedNight from "./SeparatedNight";
 import NightInactive from "./NightInactive";
 import StatusOverlay from "./StatusOverlay";
 import DeathAnnouncements from "./DeathAnnouncements";
+import DiscussionScreen from "./Discussion";
 
 import GameManager from "../../../api/game";
 import RoleLotScreen from "./RoleLotScreen";
@@ -37,6 +38,8 @@ const getComponent = (state) => {
       return DayTransition;
     case "DeathAnnounceState":
       return DeathAnnouncements;
+    case "DiscussionState":
+      return DiscussionScreen;
     default:
       return null;
   }
