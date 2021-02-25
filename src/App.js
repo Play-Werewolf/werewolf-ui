@@ -5,6 +5,8 @@ import GameScreen from "./components/screens/Game/GameScreen";
 import LoginScreen from "./components/screens/LoginScreen";
 import LobbyScreen from "./components/screens/LobbyScreen";
 import SignupScreen from "./components/screens/SignupScreen";
+import ShopScreen from "./components/screens/ShopScreen";
+import ProfileScreen from "./components/screens/ProfileScreen";
 
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -45,6 +47,12 @@ function App({auth, setLogin}) {
           </Route>
           <Route path="/game">
             <GameScreen auth={auth.auth} />
+          </Route>
+          <Route path="/shop">
+            <ShopScreen auth={auth.auth} />
+          </Route>
+          <Route path="/profile">
+            <ProfileScreen auth={auth.auth} />
           </Route>
         </Switch>
       </Router>

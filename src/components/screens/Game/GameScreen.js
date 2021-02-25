@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
 import FlexContainer from "../../common/FlexContainer";
-import BottomTabs from "../../navigation/BottomTabs";
+import BottomNavBar from "../../navigation/InGameBottomNavBar";
 import LobbyHeader from "./headers/LobbyHeader";
 
 import GameLobby from "./GameLobby";
@@ -71,6 +71,7 @@ class GameScreen extends React.Component {
     };
 
     this.getStatus = this.getStatus.bind(this);
+    this.change_screen = this.change_screen.bind(this);
 
     this.roomId = props.match.params.roomId || null;
   }
@@ -125,6 +126,10 @@ class GameScreen extends React.Component {
     )
   
   }
+
+  change_screen(screen) {
+    this.state.screen = screen;
+  }
   
   render_notification_screen(game, state) {
     return (
@@ -160,7 +165,7 @@ class GameScreen extends React.Component {
         {Header && <Header state={this.state} game={this.game} />}
         {innerElement}
         <div style={{ flex: 1 }}>&nbsp;</div>
-        <BottomTabs />
+        <BottomNavBar changeScreen={this.change_screen}/>
       </FlexContainer>
     );
   }

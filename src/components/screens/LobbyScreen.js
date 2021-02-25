@@ -7,7 +7,7 @@ import Logo from "../common/Logo";
 import Textbox from "../common/Textbox";
 import Button from "../common/Button";
 import FlexContainer from "../common/FlexContainer";
-import BottomTabs from "../navigation/BottomTabs";
+import BottomNavBar from "../navigation/BottomNavBar";
 
 const LobbyScreen = ({ history }) => {
   const [roomId, setRoomId] = useState("");
@@ -72,7 +72,7 @@ const LobbyScreen = ({ history }) => {
           Create a new party
         </Button>
       </div>
-      <BottomTabs />
+      <BottomNavBar />
     </FlexContainer>
   );
 };
